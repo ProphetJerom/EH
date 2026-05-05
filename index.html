@@ -6,213 +6,153 @@
     <title>Video Call Invites</title>
     <meta name="description" content="Connect with us through video calls">
     <link rel="icon" type="image/png" href="favicon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode {
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        body.dark-mode {
+            background-color: #1a1a1a;
+            color: #e9ecef;
+        }
+
+        .navbar-custom {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
         }
 
-        .container {
-            width: 100%;
-            max-width: 1200px;
+        .navbar-custom h1 {
+            margin: 0;
+            font-size: 1.8rem;
         }
 
-        .header {
-            text-align: center;
-            color: white;
-            margin-bottom: 50px;
-        }
-
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.95;
-        }
-
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            padding: 20px 0;
-        }
-
-        .card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
+        .theme-toggle {
+            background: none;
+            border: 1px solid currentColor;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
             cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: white;
-        }
-
-        .card-content {
-            padding: 25px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .card-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        .card-description {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 20px;
-            flex-grow: 1;
-        }
-
-        .card-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            align-self: flex-start;
-        }
-
-        .card-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .card-button:active {
-            transform: scale(0.98);
-        }
-
-        /* Emoji styles for different cards */
-        .emoji-1 { color: #ff6b9d; }
-        .emoji-2 { color: #ffa502; }
-        .emoji-3 { color: #26de81; }
-        .emoji-4 { color: #2bcbff; }
-        .emoji-5 { color: #a29bfe; }
-        .emoji-6 { color: #fd79a8; }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            color: white;
-            opacity: 0.8;
             font-size: 0.9rem;
         }
 
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header p {
-                font-size: 1rem;
-            }
-
-            .cards-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+        .light-mode .card {
+            background-color: white;
+            color: #212529;
+            border: 1px solid #dee2e6;
         }
 
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 1.5rem;
-            }
+        .dark-mode .card {
+            background-color: #2d2d2d;
+            color: #e9ecef;
+            border: 1px solid #444;
+        }
 
-            body {
-                padding: 15px;
-            }
+        .card {
+            text-decoration: none;
+            transition: none;
+        }
 
-            .header {
-                margin-bottom: 30px;
-            }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+        }
+
+        .copy-link {
+            font-size: 0.85rem;
+            font-family: monospace;
+            word-break: break-all;
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            background: rgba(0, 0, 0, 0.05);
+            margin-top: 0.5rem;
+        }
+
+        .light-mode .copy-link {
+            background: #f0f0f0;
+            color: #333;
+        }
+
+        .dark-mode .copy-link {
+            background: rgba(255, 255, 255, 0.1);
+            color: #ccc;
+        }
+
+        .copy-btn {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .light-mode footer {
+            border-top-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-mode footer {
+            border-top-color: rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
-<body>
+<body class="light-mode">
     <div class="container">
-        <div class="header">
-            <h1>📞 Video Call Invites</h1>
-            <p>Connect with us through video calls</p>
+        <div class="navbar-custom">
+            <h1>Video Call Invites</h1>
+            <button class="theme-toggle" id="themeToggle">🌙 Dark</button>
         </div>
 
-        <div class="cards-grid" id="cardsContainer">
-            <!-- Cards will be generated here by JavaScript -->
+        <div class="row" id="cardsContainer">
+            <!-- Cards will be generated here -->
         </div>
 
-        <div class="footer">
+        <footer>
             <p>© 2026 Video Call Invites. All rights reserved.</p>
-        </div>
+        </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
-        // Data configuration - Easy to add new cards here
+        // Data configuration
         const cardsData = [
             {
                 id: 1,
                 title: 'Jeewani',
                 description: 'Video call with Jeewani',
-                emoji: '💜',
                 link: 'jeewani.html'
             },
             {
                 id: 2,
                 title: 'Lathika',
                 description: 'Video call with Lathika',
-                emoji: '🧡',
                 link: 'lathika.html'
             },
             {
                 id: 3,
                 title: 'Sandamini',
                 description: 'Video call with Sandamini',
-                emoji: '💚',
                 link: 'sandamini.html'
             }
             // Add more cards like this:
@@ -220,35 +160,73 @@
             //     id: 4,
             //     title: 'Name',
             //     description: 'Description here',
-            //     emoji: '✨',
             //     link: 'page.html'
             // }
         ];
 
-        // Function to generate cards
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        // Check saved theme preference
+        const savedTheme = localStorage.getItem('theme') || 'light-mode';
+        body.classList.add(savedTheme);
+        updateThemeButton();
+
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('light-mode');
+            body.classList.toggle('dark-mode');
+            
+            const currentTheme = body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
+            localStorage.setItem('theme', currentTheme);
+            updateThemeButton();
+        });
+
+        function updateThemeButton() {
+            themeToggle.textContent = body.classList.contains('dark-mode') ? '☀️ Light' : '🌙 Dark';
+        }
+
+        // Generate cards
         function generateCards() {
             const container = document.getElementById('cardsContainer');
             container.innerHTML = '';
 
-            cardsData.forEach((card, index) => {
-                const emojiClass = `emoji-${(index % 6) + 1}`;
-                const cardHTML = `
-                    <a href="${card.link}" class="card">
-                        <div class="card-image">
-                            <span class="card-emoji ${emojiClass}">${card.emoji}</span>
+            cardsData.forEach((card) => {
+                const colDiv = document.createElement('div');
+                colDiv.className = 'col-12 col-sm-6 col-lg-4 col-xl-2.4 mb-4';
+                
+                const url = window.location.origin + window.location.pathname.replace('index.html', '') + card.link;
+                
+                colDiv.innerHTML = `
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">${card.title}</h5>
+                            <p class="card-text">${card.description}</p>
+                            <div class="copy-link" id="link-${card.id}">${url}</div>
+                            <button class="btn btn-sm btn-outline-primary copy-btn" onclick="copyToClipboard('link-${card.id}')">Copy Link</button>
                         </div>
-                        <div class="card-content">
-                            <div class="card-title">${card.title}</div>
-                            <div class="card-description">${card.description}</div>
-                            <button class="card-button">Start Video Call</button>
+                        <div class="card-footer bg-transparent">
+                            <a href="${card.link}" class="btn btn-primary w-100 btn-sm">Open</a>
                         </div>
-                    </a>
+                    </div>
                 `;
-                container.innerHTML += cardHTML;
+                container.appendChild(colDiv);
             });
         }
 
-        // Generate cards on page load
+        function copyToClipboard(elementId) {
+            const element = document.getElementById(elementId);
+            const text = element.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                }, 2000);
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', generateCards);
     </script>
 </body>
