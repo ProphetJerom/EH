@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Call Invites</title>
+    <meta name="description" content="Connect with us through video calls">
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .card-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            align-self: flex-start;
+        }
+
+        .card-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .card-button:active {
+            transform: scale(0.98);
+        }
+
+        /* Emoji styles for different cards */
+        .emoji-1 { color: #ff6b9d; }
+        .emoji-2 { color: #ffa502; }
+        .emoji-3 { color: #26de81; }
+        .emoji-4 { color: #2bcbff; }
+        .emoji-5 { color: #a29bfe; }
+        .emoji-6 { color: #fd79a8; }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .header p {
+                font-size: 1rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            body {
+                padding: 15px;
+            }
+
+            .header {
+                margin-bottom: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📞 Video Call Invites</h1>
+            <p>Connect with us through video calls</p>
+        </div>
+
+        <div class="cards-grid" id="cardsContainer">
+            <!-- Cards will be generated here by JavaScript -->
+        </div>
+
+        <div class="footer">
+            <p>© 2026 Video Call Invites. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Data configuration - Easy to add new cards here
+        const cardsData = [
+            {
+                id: 1,
+                title: 'Jeewani',
+                description: 'Video call with Jeewani',
+                emoji: '💜',
+                link: 'jeewani.html'
+            },
+            {
+                id: 2,
+                title: 'Lathika',
+                description: 'Video call with Lathika',
+                emoji: '🧡',
+                link: 'lathika.html'
+            },
+            {
+                id: 3,
+                title: 'Sandamini',
+                description: 'Video call with Sandamini',
+                emoji: '💚',
+                link: 'sandamini.html'
+            }
+            // Add more cards like this:
+            // {
+            //     id: 4,
+            //     title: 'Name',
+            //     description: 'Description here',
+            //     emoji: '✨',
+            //     link: 'page.html'
+            // }
+        ];
+
+        // Function to generate cards
+        function generateCards() {
+            const container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+
+            cardsData.forEach((card, index) => {
+                const emojiClass = `emoji-${(index % 6) + 1}`;
+                const cardHTML = `
+                    <a href="${card.link}" class="card">
+                        <div class="card-image">
+                            <span class="card-emoji ${emojiClass}">${card.emoji}</span>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-title">${card.title}</div>
+                            <div class="card-description">${card.description}</div>
+                            <button class="card-button">Start Video Call</button>
+                        </div>
+                    </a>
+                `;
+                container.innerHTML += cardHTML;
+            });
+        }
+
+        // Generate cards on page load
+        document.addEventListener('DOMContentLoaded', generateCards);
+    </script>
+</body>
+</html>
